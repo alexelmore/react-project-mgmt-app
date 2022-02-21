@@ -1,5 +1,5 @@
 // Styles
-import "./SignUp";
+import "./SignUp.css";
 export default function SignUp() {
 	return <div>signUp</div>;
 }

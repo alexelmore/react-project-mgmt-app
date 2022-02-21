@@ -6,6 +6,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Login from './pages/login/Login';
 import Project from './pages/project/Project';
 import SignUp from './pages/signup/SignUp';
+import Navbar from './components/Navbar';
 // Styles
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className='container'>
+          <Navbar />
           <Switch>
             <Route exact path="/">
               <Dashboard />
