@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { projectAuth } from "../firebase/config";
+import {
+	projectAuth,
+	projectStorage,
+	projectFirestore,
+} from "../firebase/config";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export const useSignup = () => {
@@ -27,12 +31,12 @@ export const useSignup = () => {
 				throw new Error("Could not complete signup");
 			}
 
-			// upload user thumbnail
+			// upload user thumbnail after the new user with their uid id has been created
 			const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`;
 			const img = await projectStorage.ref(uploadPath).put(thumbnail);
 			const imgUrl = await img.ref.getDownloadURL();
 
-			// Add display name to user object that is returned.
+			// add display name and image upload to the user
 			await res.user.updateProfile({ displayName, photoURL: imgUrl });
 
 			// create a user document
