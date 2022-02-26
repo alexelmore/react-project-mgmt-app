@@ -23,6 +23,7 @@ export default function SignUp() {
 			displayName: displayName,
 			thumbnail: thumbnail,
 		});
+		// Call the signup method from our custom useSignup hook, passing it the email, password,displayName and thumnail properties
 		signup(email, password, displayName, thumbnail);
 	};
 
@@ -90,14 +91,13 @@ export default function SignUp() {
 				{thumbnailError && <div className="error">{thumbnailError}</div>}
 			</label>
 
-			{isPending ? (
+			{!isPending && <button className="btn">Sign up</button>}
+			{isPending && (
 				<button className="btn" disabled>
 					loading
 				</button>
-			) : (
-				<button className="btn">Sign Up</button>
 			)}
-			{error && <p>{error}</p>}
+			{error && <div className="error">{error}</div>}
 		</form>
 	);
 }
