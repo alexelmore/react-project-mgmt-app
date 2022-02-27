@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { projectAuth } from "../firebase/config";
+import { projectAuth, projectFirestore } from "../firebase/config";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export const useLogout = () => {
@@ -9,7 +9,7 @@ export const useLogout = () => {
 	const [isCancelled, setIsCancelled] = useState(false);
 
 	// Destructure Auth Context Hook
-	const { dispatch } = useAuthContext();
+	const { dispatch, user } = useAuthContext();
 
 	// Funtion that gets invoked whenever user wants to logout.
 	const logout = async () => {
@@ -17,6 +17,15 @@ export const useLogout = () => {
 		setIsPending(true);
 
 		try {
+			/* 
+			Before the user is signed out, we need to set the user's document online property to false.
+			We are setting the document's online property to false before the user signs out because we are going to lock down our DB and only allow logged-in users the ability to edit their own document.
+			*/
+			const { uid } = user;
+			await projectFirestore.collection("users").doc(uid).update({
+				online: false,
+			});
+
 			// Try to sign the user out
 			await projectAuth.signOut();
 

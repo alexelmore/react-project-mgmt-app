@@ -17,12 +17,7 @@ export default function SignUp() {
 	// Function that handles form submission
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log({
-			email: email,
-			password: password,
-			displayName: displayName,
-			thumbnail: thumbnail,
-		});
+
 		// Call the signup method from our custom useSignup hook, passing it the email, password,displayName and thumnail properties
 		signup(email, password, displayName, thumbnail);
 	};

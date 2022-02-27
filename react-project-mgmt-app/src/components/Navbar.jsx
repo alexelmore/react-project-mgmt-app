@@ -1,10 +1,14 @@
+// Link
 import { Link } from "react-router-dom";
+// custom useLogout hook
 import { useLogout } from "../hooks/useLogout";
+// Temple svg
 import Temple from "../assets/temple.svg";
 // Styles
 import "./Navbar.css";
 
 export default function Navbar() {
+	// Destructure and pull out logout and isPending from our custom useLogout hook
 	const { logout, isPending } = useLogout();
 	return (
 		<nav className="navbar">
